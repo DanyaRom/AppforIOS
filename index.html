@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запчасти в Санкт-Петербурге | Лучшие цены</title>
+    <style>
+        /* Основные стили */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: #fff;
+            padding: 40px 0 20px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        header p {
+            font-size: 1.2rem;
+            animation: fadeIn 2s ease-in-out;
+            margin-top: 10px;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            animation: slideUp 1s ease-in-out;
+        }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+            position: relative;
+        }
+        .search-container input {
+            width: 60%;
+            max-width: 400px;
+            padding: 10px 15px;
+            border: 2px solid rgba(52, 152, 219, 0.3);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            height: 40px;
+            box-sizing: border-box;
+        }
+        .search-container input:focus {
+            border-color: rgba(41, 128, 185, 0.6);
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+        }
+        .search-container button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-left: 10px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            height: 40px;
+            box-sizing: border-box;
+        }
+        .search-container button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+        .divider {
+            height: 1px;
+            background-color: rgba(52, 152, 219, 0.2);
+            margin: 30px 0;
+        }
+        .sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .section-card {
+            background-color: #f8f8f8;
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            cursor: pointer;
+            border: 2px solid rgba(52, 152, 219, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background-color: #e0e0e0;
+        }
+        .section-card i {
+            font-size: 1.5rem;
+            color: #3498db;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+        .section-card:hover i {
+            color: #2980b9;
+        }
+        .section-card h2 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+        .carousel {
+            margin: 40px 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(52, 152, 219, 0.3);
+        }
+        .carousel h2 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .carousel-items {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-item {
+            min-width: 100%;
+            box-sizing: border-box;
+            padding: 20px;
+            text-align: center;
+            background-color: #f9f9f9;
+            border-radius: 12px;
+            margin: 0 10px;
+            transition: opacity 0.5s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .carousel-item img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+        .faq {
+            margin-top: 40px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .faq h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+        .faq h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: #3498db;
+            border-radius: 2px;
+        }
+        .faq-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+        }
+        .faq-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .faq-question {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 100px;
+            opacity: 1;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #2c3e50;
+            color: #fff;
+            margin-top: 60px;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .footer-section {
+            flex: 1 1 200px;
+            text-align: center;
+        }
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #3498db;
+        }
+        .footer-section p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+            color: #ddd;
+        }
+        .footer-section a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-section a:hover {
+            color: #3498db;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .social-icons a {
+            color: #fff;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        .social-icons a:hover {
+            color: #3498db;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        #home-icon {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #2980b9;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        #home-icon:hover {
+            background-color: #2472a3;
+            transform: translateY(-2px);
+        }
+        #cart-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        #cart-icon:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        /* Стили для кнопки "Вернуться наверх" */
+        #back-to-top {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        #back-to-top.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #back-to-top:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        /* Стили для результатов поиска */
+        #search-results {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .search-result-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+            padding: 20px;
+            border: 1px solid rgba(52, 152, 219, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .search-result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+        }
+        .search-result-name {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        .search-result-article {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .search-result-price {
+            font-size: 1.1rem;
+            color: #3498db;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .search-result-actions button {
+            padding: 10px 15px;
+            background: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 0.9rem;
+        }
+        .search-result-actions button:hover {
+            background: #2980b9;
+        }
+        .not-found {
+            color: red;
+            text-align: center;
+        }
+        /* Анимация для улетания товара в корзину */
+        @keyframes flyToCart {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(0.5) translateY(-50px);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(0.1) translateY(-100px);
+                opacity: 0;
+            }
+        }
+        .fly-to-cart {
+            animation: flyToCart 0.5s ease-in-out forwards;
+        }
+
+        /* Стили для автодополнения */
+        .autocomplete-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            max-width: 400px;
+            background: #fff;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 5px;
+            display: none;
+        }
+        .autocomplete-suggestions.show {
+            display: block;
+        }
+        .autocomplete-suggestion {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .autocomplete-suggestion:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Стили для предпросмотра корзины */
+        .cart-preview {
+            position: absolute;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            background: #fff;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 15px;
+            display: none;
+        }
+        .cart-preview.show {
+            display: block;
+        }
+        .cart-preview h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .cart-preview-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .cart-preview-item-name {
+            font-size: 0.9rem;
+            color: #666;
+            flex: 1;
+            text-align: left;
+        }
+        .cart-preview-item-quantity {
+            font-size: 0.9rem;
+            color: #3498db;
+            width: 50px;
+            text-align: center;
+        }
+        .cart-preview-item-price {
+            font-size: 0.9rem;
+            color: #2c3e50;
+            font-weight: bold;
+            width: 80px;
+            text-align: right;
+        }
+        .cart-preview-total {
+            font-size: 1rem;
+            color: #2c3e50;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: right;
+        }
+
+        /* Новые стили для кнопок связи */
+        .contact-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .contact-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #3498db;
+            color: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+        }
+        .contact-button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        .contact-button i {
+            font-size: 1.5rem;
+        }
+        .contact-button.phone {
+            width: auto;
+            padding: 0 20px;
+            border-radius: 50px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>Запчасти в Санкт-Петербурге</h1>
+        <p>Просто. Быстро. Надежно.</p>
+        <!-- Кнопки связи -->
+        <div class="contact-buttons">
+            <a href="https://t.me/ваш_телеграм" class="contact-button" target="_blank">
+                <i class="fab fa-telegram"></i>
+            </a>
+            <a href="mailto:support@zapchasti-spb.ru" class="contact-button">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <a href="tel:+79999999999" class="contact-button phone">
+                <i class="fas fa-phone"></i>
+                <span>+7 (999) 999-99-99</span>
+            </a>
+        </div>
+        <div id="home-icon" onclick="window.location.href='index.html'">
+            <i class="fas fa-home"></i>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Поисковая панель -->
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Введите артикул запчасти" oninput="handleSearchInput()">
+            <button id="search-button">Найти</button>
+            <div class="autocomplete-suggestions" id="autocomplete-suggestions"></div>
+        </div>
+
+        <!-- Блок для отображения результатов поиска -->
+        <div id="search-results"></div>
+
+        <div class="divider"></div>
+        <div class="sections">
+            <div class="section-card" onclick="redirectToProfile()">
+                <i class="fas fa-user"></i>
+                <h2>Личный кабинет</h2>
+            </div>
+            <div class="section-card" onclick="window.location.href='catalog.html'">
+                <i class="fas fa-list"></i>
+                <h2>Каталог</h2>
+            </div>
+            <div class="section-card" onclick="window.location.href='return-policy.html'">
+                <i class="fas fa-undo"></i>
+                <h2>Возврат</h2>
+            </div>
+            <div class="section-card" onclick="window.location.href='cart.html'">
+                <i class="fas fa-shopping-cart"></i>
+                <h2>Корзина</h2>
+            </div>
+            <div class="section-card" onclick="window.location.href='about.html'">
+                <i class="fas fa-info-circle"></i>
+                <h2>О нас</h2>
+            </div>
+        </div>
+
+        <div class="carousel">
+            <h2>Специальные предложения</h2>
+            <div class="carousel-items" id="carousel-items">
+                <div class="carousel-item">
+                    <img src="https://via.placeholder.com/300" alt="Тормозные колодки">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://via.placeholder.com/300" alt="Масло моторное">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://via.placeholder.com/300" alt="Фильтры">
+                </div>
+            </div>
+        </div>
+        <div class="faq">
+            <h2>FAQ</h2>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">
+                    Как оплатить заказ?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Вы можете оплатить заказ банковской картой или через PayPal.
+                </div>
+            </div>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">
+                    Есть ли доставка?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Да, мы доставляем заказы по всей России. Сроки доставки зависят от вашего региона.
+                </div>
+            </div>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">
+                    Есть ли самовывоз?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Да, вы можете забрать заказ самостоятельно из нашего офиса в Санкт-Петербурге.
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Кнопка "Вернуться наверх" -->
+    <div id="back-to-top" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    <!-- Корзина в правом нижнем углу -->
+    <div id="cart-icon" onclick="window.location.href='cart.html'" onmouseover="showCartPreview()" onmouseout="hideCartPreview()">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count">0</span>
+        <div class="cart-preview" id="cart-preview" onclick="window.location.href='cart.html'">
+            <h3>Корзина</h3>
+            <div id="cart-preview-items"></div>
+            <div class="cart-preview-total">Итого: <span id="cart-preview-total">0 ₽</span></div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p><i class="fas fa-phone"></i> +7 (999) 999-99-99</p>
+                <p><i class="fas fa-envelope"></i> support@zapchasti-spb.ru</p>
+                <p><i class="fas fa-map-marker-alt"></i> Санкт-Петербург, ул. Примерная, д. 123</p>
+            </div>
+            <div class="footer-section">
+                <h3>Социальные сети</h3>
+                <div class="social-icons">
+                    <a href="https://vk.com" target="_blank"><i class="fab fa-vk"></i></a>
+                    <a href="https://telegram.org" target="_blank"><i class="fab fa-telegram"></i></a>
+                    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>О компании</h3>
+                <p>Мы — лидеры в продаже автозапчастей в Санкт-Петербурге. Качество, надежность и доступные цены.</p>
+            </div>
+        </div>
+        <p style="margin-top: 20px; font-size: 0.9rem;">&copy; 2025 Запчасти в Санкт-Петербурге. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // Загрузка данных из JSON-файла
+        let partsData = [];
+
+        fetch('data/Книга1.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Ошибка загрузки данных');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data && data.Лист1) {
+                    partsData = data.Лист1;
+                } else {
+                    console.error('Данные не найдены или имеют неправильную структуру');
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка загрузки данных:', error);
+                alert('Не удалось загрузить данные. Пожалуйста, попробуйте позже.');
+            });
+
+        // Функция для преобразования цены
+        function parsePrice(price) {
+            const cleanedPrice = price.replace(/\s/g, '').replace(',', '.');
+            const parsedPrice = parseFloat(cleanedPrice);
+            if (isNaN(parsedPrice)) {
+                console.error('Некорректный формат цены:', price);
+                return 0;
+            }
+            return parsedPrice;
+        }
+
+        // Обработчик ввода в поисковую строку
+        function handleSearchInput() {
+            const searchInput = document.getElementById('search-input').value.trim();
+            const suggestionsContainer = document.getElementById('autocomplete-suggestions');
+            suggestionsContainer.innerHTML = '';
+
+            if (searchInput.length > 0) {
+                const filteredParts = partsData.filter(part => 
+                    part.Артикул.toLowerCase().includes(searchInput.toLowerCase()) || 
+                    part.Наименование.toLowerCase().includes(searchInput.toLowerCase())
+                );
+
+                if (filteredParts.length > 0) {
+                    filteredParts.forEach(part => {
+                        const suggestion = document.createElement('div');
+                        suggestion.className = 'autocomplete-suggestion';
+                        suggestion.textContent = `${part.Артикул} - ${part.Наименование}`;
+                        suggestion.onclick = () => showSearchResult(part);
+                        suggestionsContainer.appendChild(suggestion);
+                    });
+                    suggestionsContainer.classList.add('show');
+                } else {
+                    suggestionsContainer.classList.remove('show');
+                }
+            } else {
+                suggestionsContainer.classList.remove('show');
+            }
+        }
+
+        // Функция для отображения результата поиска
+        function showSearchResult(part) {
+            const resultsContainer = document.getElementById('search-results');
+            const price = parsePrice(part.Цена);
+            resultsContainer.innerHTML = `
+                <div class="search-result-card">
+                    <div class="search-result-name">${part.Наименование}</div>
+                    <div class="search-result-article">Артикул: ${part.Артикул}</div>
+                    <div class="search-result-price">${price.toLocaleString()} ₽</div>
+                    <div class="search-result-actions">
+                        <button onclick="addToCart('${part.Артикул}', '${part.Наименование}', ${price}, this)">В корзину</button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('autocomplete-suggestions').classList.remove('show');
+        }
+
+        // Обработчик нажатия кнопки "Найти"
+        document.getElementById('search-button').addEventListener('click', function() {
+            const searchInput = document.getElementById('search-input').value.trim();
+            const resultsContainer = document.getElementById('search-results');
+            resultsContainer.innerHTML = '';
+
+            if (!searchInput) {
+                resultsContainer.innerHTML = '<div class="not-found">Пожалуйста, введите артикул.</div>';
+                return;
+            }
+
+            if (partsData.length === 0) {
+                resultsContainer.innerHTML = '<div class="not-found">Данные не загружены. Пожалуйста, попробуйте позже.</div>';
+                return;
+            }
+
+            const foundPart = partsData.find(part => 
+                part.Артикул.toLowerCase() === searchInput.toLowerCase() || 
+                part.Наименование.toLowerCase().includes(searchInput.toLowerCase())
+            );
+
+            if (foundPart) {
+                showSearchResult(foundPart);
+            } else {
+                resultsContainer.innerHTML = '<div class="not-found">Запчасть с таким артикулом не найдена.</div>';
+            }
+        });
+
+        // Функция для добавления товара в корзину с анимацией
+        function addToCart(article, name, price, button) {
+            const card = button.closest('.search-result-card');
+            card.classList.add('fly-to-cart');
+
+            setTimeout(() => {
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const existingItem = cart.find(item => item.article === article);
+
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ article, name, price, quantity: 1 });
+                }
+
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartIcon();
+                updateCartPreview();
+                card.remove();
+            }, 500);
+        }
+
+        // Функция для обновления иконки корзины
+        function updateCartIcon() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartIcon = document.getElementById('cart-icon');
+            const cartCount = document.getElementById('cart-count');
+
+            if (totalItems > 0) {
+                cartIcon.style.display = 'block';
+                cartCount.textContent = totalItems;
+            } else {
+                cartIcon.style.display = 'none';
+            }
+        }
+
+        // Функция для обновления предпросмотра корзины
+        function updateCartPreview() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartPreviewItems = document.getElementById('cart-preview-items');
+            const cartPreviewTotal = document.getElementById('cart-preview-total');
+            cartPreviewItems.innerHTML = '';
+
+            let total = 0;
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-preview-item';
+                itemElement.innerHTML = `
+                    <div class="cart-preview-item-name">${item.name}</div>
+                    <div class="cart-preview-item-quantity">${item.quantity} шт.</div>
+                    <div class="cart-preview-item-price">${item.price.toLocaleString()} ₽</div>
+                `;
+                cartPreviewItems.appendChild(itemElement);
+            });
+
+            cartPreviewTotal.textContent = `${total.toLocaleString()} ₽`;
+        }
+
+        // Показ предпросмотра корзины
+        function showCartPreview() {
+            const cartPreview = document.getElementById('cart-preview');
+            cartPreview.classList.add('show');
+        }
+
+        // Скрытие предпросмотра корзины
+        function hideCartPreview() {
+            const cartPreview = document.getElementById('cart-preview');
+            cartPreview.classList.remove('show');
+        }
+
+        // Функция для перехода в личный кабинет
+        function redirectToProfile() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (user) {
+                window.location.href = 'profile.html';
+            } else {
+                window.location.href = 'account.html';
+            }
+        }
+
+        // Остальные функции (toggleFAQ, scrollToTop и т.д.)
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartIcon();
+            updateCartPreview();
+        });
+
+        let currentSlide = 0;
+        const carouselItems = document.getElementById('carousel-items');
+        const totalSlides = document.querySelectorAll('.carousel-item').length;
+        function updateCarousel() {
+            const offset = -currentSlide * 100;
+            carouselItems.style.transform = `translateX(${offset}%)`;
+        }
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }, 5000);
+
+        function toggleFAQ(item) {
+            const isActive = item.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // Функция для прокрутки страницы вверх
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Показываем кнопку "Вернуться наверх" при прокрутке
+        window.addEventListener('scroll', () => {
+            const backToTopButton = document.getElementById('back-to-top');
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

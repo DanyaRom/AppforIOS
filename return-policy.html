@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Правила возврата | Запчасти в Санкт-Петербурге</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: #fff;
+            padding: 50px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            animation: slideUp 1s ease-in-out;
+        }
+        .return-policy {
+            margin-top: 10px; /* Уменьшен отступ сверху */
+        }
+        .return-policy p {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .return-policy ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            color: #666;
+        }
+        .return-policy ul li {
+            margin-bottom: 10px;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #2c3e50;
+            color: #fff;
+            margin-top: 40px;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .footer-section {
+            flex: 1 1 200px;
+            text-align: center;
+        }
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #3498db;
+        }
+        .footer-section p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+            color: #ddd;
+        }
+        .footer-section a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-section a:hover {
+            color: #3498db;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .social-icons a {
+            color: #fff;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        .social-icons a:hover {
+            color: #3498db;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Стили для значка "На главную" */
+        #home-icon {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #2980b9;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        #home-icon:hover {
+            background-color: #2472a3;
+            transform: translateY(-2px);
+        }
+
+        /* Стили для значка корзины */
+        #cart-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        #cart-icon:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        /* Стили для предпросмотра корзины */
+        .cart-preview {
+            position: absolute;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            background: #fff;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 15px;
+            display: none;
+        }
+        .cart-preview.show {
+            display: block;
+        }
+        .cart-preview h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .cart-preview-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .cart-preview-item-name {
+            font-size: 0.9rem;
+            color: #666;
+            flex: 1;
+            text-align: left;
+        }
+        .cart-preview-item-quantity {
+            font-size: 0.9rem;
+            color: #3498db;
+            width: 50px;
+            text-align: center;
+        }
+        .cart-preview-item-price {
+            font-size: 0.9rem;
+            color: #2c3e50;
+            font-weight: bold;
+            width: 80px;
+            text-align: right;
+        }
+        .cart-preview-total {
+            font-size: 1rem;
+            color: #2c3e50;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: right;
+        }
+
+        /* Стили для кнопки "Вернуться наверх" */
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        #back-to-top.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #back-to-top:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+    </style>
+    <!-- Иконки FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <h1>Правила возврата</h1>
+        <!-- Значок "На главную" -->
+        <div id="home-icon" onclick="window.location.href='index.html'">
+            <i class="fas fa-home"></i>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="return-policy">
+            <p>
+                Мы стремимся к тому, чтобы каждый клиент остался доволен своей покупкой. Однако, если по какой-либо причине вам необходимо вернуть товар, пожалуйста, ознакомьтесь с нашими правилами возврата.
+            </p>
+            <h3>Основные условия возврата:</h3>
+            <ul>
+                <li>Возврат товара возможен в течение <strong>14 дней</strong> с момента покупки.</li>
+                <li>Товар должен быть в оригинальной упаковке и без следов использования.</li>
+                <li>Для возврата товара необходимо предоставить чек или иное подтверждение покупки.</li>
+                <li>Товары, которые были в употреблении или повреждены, возврату не подлежат.</li>
+                <li>Возврат денежных средств осуществляется в течение <strong>7 рабочих дней</strong> после получения товара и проверки его состояния.</li>
+            </ul>
+            <h3>Как оформить возврат:</h3>
+            <ol>
+                <li>Свяжитесь с нашей службой поддержки по телефону или через электронную почту, чтобы сообщить о намерении вернуть товар.</li>
+                <li>Упакуйте товар в оригинальную упаковку и приложите все необходимые документы (чек, гарантийный талон и т.д.).</li>
+                <li>Отправьте товар по адресу, указанному нашей службой поддержки.</li>
+                <li>После получения и проверки товара мы вернем вам деньги на указанный вами счет.</li>
+            </ol>
+            <h3>Товары, не подлежащие возврату:</h3>
+            <ul>
+                <li>Товары, изготовленные на заказ или под заказ.</li>
+                <li>Товары, которые были в употреблении или имеют следы эксплуатации.</li>
+                <li>Товары, упаковка которых была повреждена или утеряна.</li>
+            </ul>
+            <p>
+                Если у вас возникли вопросы или вам нужна помощь, пожалуйста, свяжитесь с нашей службой поддержки по телефону <strong>+7 (999) 999-99-99</strong> или напишите на <strong>support@zapchasti-spb.ru</strong>.
+            </p>
+        </div>
+    </div>
+
+    <!-- Кнопка "Вернуться наверх" -->
+    <div id="back-to-top" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Корзина в правом нижнем углу -->
+    <div id="cart-icon" onclick="window.location.href='cart.html'" onmouseover="showCartPreview()" onmouseout="hideCartPreview()">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count">0</span>
+        <div class="cart-preview" id="cart-preview" onclick="window.location.href='cart.html'">
+            <h3>Корзина</h3>
+            <div id="cart-preview-items"></div>
+            <div class="cart-preview-total">Итого: <span id="cart-preview-total">0 ₽</span></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p><i class="fas fa-phone"></i> +7 (999) 999-99-99</p>
+                <p><i class="fas fa-envelope"></i> support@zapchasti-spb.ru</p>
+                <p><i class="fas fa-map-marker-alt"></i> Санкт-Петербург, ул. Примерная, д. 123</p>
+            </div>
+            <div class="footer-section">
+                <h3>Социальные сети</h3>
+                <div class="social-icons">
+                    <a href="https://vk.com" target="_blank"><i class="fab fa-vk"></i></a>
+                    <a href="https://telegram.org" target="_blank"><i class="fab fa-telegram"></i></a>
+                    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>О компании</h3>
+                <p>Мы — лидеры в продаже автозапчастей в Санкт-Петербурге. Качество, надежность и доступные цены.</p>
+            </div>
+        </div>
+        <p style="margin-top: 20px; font-size: 0.9rem;">&copy; 2025 Запчасти в Санкт-Петербурге. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // Функция для обновления значка корзины
+        function updateCartIcon() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartIcon = document.getElementById('cart-icon');
+            const cartCount = document.getElementById('cart-count');
+
+            if (totalItems > 0) {
+                cartIcon.style.display = 'block';
+                cartCount.textContent = totalItems;
+            } else {
+                cartIcon.style.display = 'none';
+            }
+        }
+
+        // Функция для обновления предпросмотра корзины
+        function updateCartPreview() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartPreviewItems = document.getElementById('cart-preview-items');
+            const cartPreviewTotal = document.getElementById('cart-preview-total');
+            cartPreviewItems.innerHTML = '';
+
+            let total = 0;
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-preview-item';
+                itemElement.innerHTML = `
+                    <div class="cart-preview-item-name">${item.name}</div>
+                    <div class="cart-preview-item-quantity">${item.quantity} шт.</div>
+                    <div class="cart-preview-item-price">${item.price.toLocaleString()} ₽</div>
+                `;
+                cartPreviewItems.appendChild(itemElement);
+            });
+
+            cartPreviewTotal.textContent = `${total.toLocaleString()} ₽`;
+        }
+
+        // Показ предпросмотра корзины
+        function showCartPreview() {
+            const cartPreview = document.getElementById('cart-preview');
+            cartPreview.classList.add('show');
+        }
+
+        // Скрытие предпросмотра корзины
+        function hideCartPreview() {
+            const cartPreview = document.getElementById('cart-preview');
+            cartPreview.classList.remove('show');
+        }
+
+        // Инициализация значка корзины при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartIcon();
+            updateCartPreview();
+        });
+
+        // Функция для прокрутки страницы вверх
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Показываем кнопку "Вернуться наверх" при прокрутке
+        window.addEventListener('scroll', () => {
+            const backToTopButton = document.getElementById('back-to-top');
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

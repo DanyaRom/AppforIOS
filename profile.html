@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль | Запчасти в Санкт-Петербурге</title>
+    <style>
+        /* Базовые стили */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: #fff;
+            padding: 50px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            animation: slideUp 1s ease-in-out;
+            position: relative;
+        }
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #2c3e50;
+            color: #fff;
+            margin-top: 40px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        /* Кнопки навигации */
+        .nav-button {
+            position: fixed;
+            top: 20px;
+            padding: 12px 24px;
+            background-color: #2980b9;
+            color: #fff;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover {
+            background-color: #2472a3;
+            transform: translateY(-2px);
+        }
+        #home-icon { left: 20px; }
+        #cart-icon { right: 20px; }
+        /* Стили для кнопки "Выйти" */
+        #logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        #logout-button:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        /* Основные секции профиля */
+        .user-info {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .profile-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .profile-tab {
+            padding: 10px 20px;
+            background-color: #f1f1f1;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .profile-tab.active {
+            background-color: #3498db;
+            color: #fff;
+        }
+        /* Формы и поля ввода */
+        .profile-content {
+            display: none;
+        }
+        .profile-content.active {
+            display: block;
+        }
+        .profile-content input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid rgba(52, 152, 219, 0.3);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        .profile-content input:focus {
+            border-color: rgba(41, 128, 185, 0.6);
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+        }
+        /* Уведомления */
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #3498db;
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 2000;
+            display: none;
+        }
+        /* Новые стили для блока редактирования личных данных */
+        .personal-data-form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .personal-data-form h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        .personal-data-form button {
+            width: 100%;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        .personal-data-form button:hover {
+            background-color: #2980b9;
+        }
+        /* Стили для раздела "Гараж" */
+        .garage-content {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .garage-content h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        .garage-content input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid rgba(52, 152, 219, 0.3);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        .garage-content input:focus {
+            border-color: rgba(41, 128, 185, 0.6);
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+        }
+        .garage-content button {
+            width: 100%;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        .garage-content button:hover {
+            background-color: #2980b9;
+        }
+        .car-list {
+            list-style: none;
+            padding: 0;
+        }
+        .car-list li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .car-list li:last-child {
+            border-bottom: none;
+        }
+        .car-list button {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .car-list button:hover {
+            background-color: #c0392b;
+        }
+        /* Стили для раздела "Заказы" */
+        .orders-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .orders-content h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        .order-history {
+            list-style: none;
+            padding: 0;
+        }
+        .order-history li {
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .order-history li:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+        .order-history li:last-child {
+            margin-bottom: 0;
+        }
+        .order-details {
+            display: none;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            animation: slideDown 0.3s ease-in-out;
+        }
+        .order-details.active {
+            display: block;
+        }
+        .order-details ul {
+            list-style: none;
+            padding: 0;
+        }
+        .order-details li {
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .order-details li:last-child {
+            border-bottom: none;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Стили для кнопки "Вернуться наверх" */
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        #back-to-top.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #back-to-top:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        /* Стили для значка корзины */
+        #cart-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        #cart-icon:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        /* Стили для предпросмотра корзины */
+        .cart-preview {
+            position: absolute;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            background: #fff;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 15px;
+            display: none;
+        }
+        .cart-preview.show {
+            display: block;
+        }
+        .cart-preview h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .cart-preview-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .cart-preview-item-name {
+            font-size: 0.9rem;
+            color: #666;
+            flex: 1;
+            text-align: left;
+        }
+        .cart-preview-item-quantity {
+            font-size: 0.9rem;
+            color: #3498db;
+            width: 50px;
+            text-align: center;
+        }
+        .cart-preview-item-price {
+            font-size: 0.9rem;
+            color: #2c3e50;
+            font-weight: bold;
+            width: 80px;
+            text-align: right;
+        }
+        .cart-preview-total {
+            font-size: 1rem;
+            color: #2c3e50;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: right;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Шапка -->
+    <header>
+        <h1>Профиль</h1>
+        <div id="home-icon" class="nav-button" onclick="window.location.href='index.html'">
+            <i class="fas fa-home"></i>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <div class="container">
+        <button id="logout-button" onclick="logout()">Выйти</button>
+        <div class="user-info">
+            <h2>Добро пожаловать, <span id="user-name"></span>!</h2>
+        </div>
+        <div class="profile-tabs">
+            <div class="profile-tab active" onclick="showSection('personal-data')">Личные данные</div>
+            <div class="profile-tab" onclick="showSection('orders')">Заказы</div>
+            <div class="profile-tab" onclick="showSection('garage')">Гараж</div>
+        </div>
+        <div class="profile-content active" id="personal-data-content">
+            <div class="personal-data-form">
+                <h3>Редактирование личных данных</h3>
+                <input type="text" placeholder="Имя" id="edit-name">
+                <input type="email" placeholder="Email" id="edit-email">
+                <input type="password" placeholder="Новый пароль" id="edit-password">
+                <input type="password" placeholder="Подтвердите пароль" id="confirm-password">
+                <button onclick="savePersonalData()">Сохранить</button>
+            </div>
+        </div>
+        <div class="profile-content" id="orders-content">
+            <div class="orders-content">
+                <h3>История заказов</h3>
+                <ul class="order-history" id="order-list">
+                    <!-- Заказы будут добавляться динамически -->
+                </ul>
+            </div>
+        </div>
+        <div class="profile-content" id="garage-content">
+            <div class="garage-content">
+                <h3>Управление автомобилями</h3>
+                <input type="text" placeholder="Марка автомобиля" id="car-brand" list="car-brands">
+                <datalist id="car-brands">
+                    <option value="Toyota">
+                    <option value="BMW">
+                    <option value="Mercedes-Benz">
+                    <option value="Audi">
+                    <option value="Volkswagen">
+                    <option value="Ford">
+                    <option value="Hyundai">
+                    <option value="Kia">
+                    <option value="Nissan">
+                    <option value="Honda">
+                </datalist>
+                <input type="text" placeholder="Модель автомобиля" id="car-model">
+                <button onclick="addCar()">Добавить автомобиль</button>
+                <ul class="car-list" id="car-list">
+                    <!-- Автомобили будут добавляться динамически -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Кнопка "Вернуться наверх" -->
+    <div id="back-to-top" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Корзина в правом нижнем углу -->
+    <div id="cart-icon" onclick="window.location.href='cart.html'" onmouseover="showCartPreview()" onmouseout="hideCartPreview()">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count">0</span>
+        <div class="cart-preview" id="cart-preview" onclick="window.location.href='cart.html'">
+            <h3>Корзина</h3>
+            <div id="cart-preview-items"></div>
+            <div class="cart-preview-total">Итого: <span id="cart-preview-total">0 ₽</span></div>
+        </div>
+    </div>
+
+    <!-- Уведомления -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Подвал -->
+    <footer>
+        <p>&copy; 2025 Запчасти в Санкт-Петербурге. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // Проверяем авторизацию пользователя
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user || !user.isLoggedIn) {
+                window.location.href = 'account.html';
+                return;
+            }
+            // Загружаем данные пользователя
+            document.getElementById('user-name').textContent = user.name;
+            document.getElementById('edit-name').value = user.name;
+            document.getElementById('edit-email').value = user.email;
+            // Загружаем историю заказов, автомобили и избранное
+            loadOrderHistory();
+            loadCars();
+            updateCartIcon();
+        });
+
+        // Функция выхода из системы
+        function logout() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (user) {
+                user.isLoggedIn = false; // Устанавливаем флаг авторизации в false
+                localStorage.setItem('user', JSON.stringify(user));
+            }
+            window.location.href = 'account.html';
+        }
+
+        // Функция отображения раздела
+        function showSection(sectionId) {
+            document.querySelectorAll('.profile-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.profile-content').forEach(content => content.classList.remove('active'));
+            document.querySelector(`[onclick="showSection('${sectionId}')"]`).classList.add('active');
+            document.getElementById(`${sectionId}-content`).classList.add('active');
+        }
+
+        // Функция сохранения личных данных
+        async function savePersonalData() {
+            const name = document.getElementById('edit-name').value.trim();
+            const email = document.getElementById('edit-email').value.trim();
+            const password = document.getElementById('edit-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            // Загружаем текущие данные пользователя из localStorage
+            const currentUser = JSON.parse(localStorage.getItem('user')) || {};
+
+            if (!name || !email) {
+                showNotification('Пожалуйста, заполните все обязательные поля.', 'error');
+                return;
+            }
+
+            if (password && password !== confirmPassword) {
+                showNotification('Пароли не совпадают.', 'error');
+                return;
+            }
+
+            if (!validateEmail(email)) {
+                showNotification('Некорректный email.', 'error');
+                return;
+            }
+
+            try {
+                showLoader();
+                const hashedPassword = password ? hashPassword(password) : currentUser.password;
+
+                // Создаем новый объект пользователя
+                const user = {
+                    name,
+                    email,
+                    password: hashedPassword, // Сохраняем старый или новый пароль
+                    isLoggedIn: true
+                };
+
+                // Сохраняем обновленные данные в localStorage
+                localStorage.setItem('user', JSON.stringify(user));
+
+                // Обновляем отображение имени пользователя
+                document.getElementById('user-name').textContent = name;
+
+                // Отладочное сообщение
+                console.log("Данные сохранены в localStorage:", user);
+
+                showNotification('Данные успешно сохранены!', 'success');
+            } catch (error) {
+                console.error(error);
+                showNotification('Ошибка при сохранении данных.', 'error');
+            } finally {
+                hideLoader();
+            }
+        }
+
+        // Валидация email
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        // Хеширование пароля (простая имитация)
+        function hashPassword(password) {
+            return btoa(password); // Простое кодирование в base64 для примера
+        }
+
+        // Загрузка истории заказов
+        function loadOrderHistory() {
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const orderList = document.getElementById('order-list');
+            orderList.innerHTML = '';
+            orders.forEach((order, index) => {
+                const orderItem = document.createElement('li');
+                orderItem.innerHTML = `
+                    <span>Заказ #${order.id}</span>
+                    <span>${order.date}</span>
+                    <div class="order-details" id="order-details-${index}">
+                        <ul>
+                            ${order.items.map(item => `
+                                <li>${item.name} - ${item.quantity} шт. - ${item.price.toLocaleString()} ₽</li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `;
+                orderItem.addEventListener('click', () => {
+                    const details = document.getElementById(`order-details-${index}`);
+                    details.classList.toggle('active');
+                });
+                orderList.appendChild(orderItem);
+            });
+        }
+
+        // Добавление автомобиля
+        function addCar() {
+            const brand = document.getElementById('car-brand').value.trim();
+            const model = document.getElementById('car-model').value.trim();
+            if (!brand || !model) {
+                showNotification('Пожалуйста, заполните все поля.', 'error');
+                return;
+            }
+            const cars = JSON.parse(localStorage.getItem('cars')) || [];
+            cars.push({ brand, model });
+            localStorage.setItem('cars', JSON.stringify(cars));
+            loadCars();
+            document.getElementById('car-brand').value = '';
+            document.getElementById('car-model').value = '';
+            showNotification('Автомобиль добавлен!', 'success');
+        }
+
+        // Загрузка автомобилей
+        function loadCars() {
+            const cars = JSON.parse(localStorage.getItem('cars')) || [];
+            const carList = document.getElementById('car-list');
+            carList.innerHTML = '';
+            cars.forEach((car, index) => {
+                const carItem = document.createElement('li');
+                carItem.innerHTML = `
+                    ${car.brand} ${car.model}
+                    <button onclick="removeCar(${index})">Удалить</button>
+                `;
+                carList.appendChild(carItem);
+            });
+        }
+
+        // Удаление автомобиля
+        function removeCar(index) {
+            let cars = JSON.parse(localStorage.getItem('cars')) || [];
+            cars.splice(index, 1);
+            localStorage.setItem('cars', JSON.stringify(cars));
+            loadCars();
+            showNotification('Автомобиль удален!', 'success');
+        }
+
+        // Обновление значка корзины
+        function updateCartIcon() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = totalItems;
+        }
+
+        // Loader
+        function showLoader() {
+            // Реализация loader/spinner
+        }
+        function hideLoader() {
+            // Скрытие loader/spinner
+        }
+
+        // Функция для прокрутки страницы вверх
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Показываем кнопку "Вернуться наверх" при прокрутке
+        window.addEventListener('scroll', () => {
+            const backToTopButton = document.getElementById('back-to-top');
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        // Уведомления
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.style.backgroundColor = type === 'error' ? '#e74c3c' : '#3498db';
+            notification.textContent = message;
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        // Функция для обновления предпросмотра корзины
+        function updateCartPreview() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartPreviewItems = document.getElementById('cart-preview-items');
+            const cartPreviewTotal = document.getElementById('cart-preview-total');
+            cartPreviewItems.innerHTML = '';
+
+            let total = 0;
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-preview-item';
+                itemElement.innerHTML = `
+                    <div class="cart-preview-item-name">${item.name}</div>
+                    <div class="cart-preview-item-quantity">${item.quantity} шт.</div>
+                    <div class="cart-preview-item-price">${item.price.toLocaleString()} ₽</div>
+                `;
+                cartPreviewItems.appendChild(itemElement);
+            });
+
+            cartPreviewTotal.textContent = `${total.toLocaleString()} ₽`;
+        }
+
+        // Показ предпросмотра корзины
+        function showCartPreview() {
+            const cartPreview = document.getElementById('cart-preview');
+            cartPreview.classList.add('show');
+        }
+
+        // Скрытие предпросмотра корзины
+        function hideCartPreview() {
+            const cartPreview = document.getElementById('cart-preview');
+            cartPreview.classList.remove('show');
+        }
+
+        // Инициализация значка корзины при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartIcon();
+            updateCartPreview();
+        });
+    </script>
+</body>
+</html>
